@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package ipetfood;
+
+message Product {
+  string name = 1;
+  int32 price_br = 2;
+  string image = 3;
+}
+
+message OrderItem {
+  Product product = 1;
+  int32 amount = 2;
+  int32 price_br = 3;
+}
+
+message Order {
+  repeated OrderItem items = 1;
+}
+
+message IndexProduct {
+  repeated Product products = 1;
+}
+
+message IndexOrder {
+  repeated Order orders = 1;
+}
+
+message Void {}
+
+service IPetFood {
+  rpc menuIndex (Void) returns (IndexProduct);
+  rpc menuStore (Product) returns (Void);
+  rpc menuDelete (Product) returns (Void);
+  
+  rpc orderIndex (Void) returns (IndexOrder);
+  rpc orderStore (Order) returns (Void);
+}
